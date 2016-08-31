@@ -10,6 +10,7 @@ public class Board : MonoBehaviour
 	public Transform TilePrefab;
 
     public List<Transform> Tiles = new List<Transform>();
+    private Dictionary<string, Tile> _tilesDictioanry = new Dictionary<string, Tile>();
 
     void Start () 
 	{
@@ -32,11 +33,19 @@ public class Board : MonoBehaviour
 				tile.name = "Tile" + x + y;
 				tile.parent = this.transform;
 
-				tile.GetComponent<Tile>().PosX = x;
-				tile.GetComponent<Tile>().PosY = y;
+                Tile tileScript = tile.GetComponent<Tile>();
+
+                tileScript.PosX = x;
+                tileScript.PosY = y;
 
                 Tiles.Add(tile);
+                _tilesDictioanry[x.ToString() + "-" + y.ToString()] = tileScript;
 			}
 		}
 	}
+
+    public Tile GetTile(int x, int y)
+    {
+        return _tilesDictioanry[x.ToString() + "-" + y.ToString()];
+    }
 }

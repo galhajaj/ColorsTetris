@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class EscapeToMainScene : MonoBehaviour 
 {
-    public Text ScoreText;
-
 	// Use this for initialization
 	void Start () 
     {
