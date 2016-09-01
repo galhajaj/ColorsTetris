@@ -29,6 +29,16 @@ public class Piece : MonoBehaviour
 	
 	}
 
+    public bool IsContainsTile(Tile tile)
+    {
+        foreach (Point p in Points)
+        {
+            if (p.X == tile.PosX && p.Y == tile.PosY)
+                return true;
+        }
+        return false;
+    }
+
     public void GenerateRandom()
     {
         Points.Clear();
