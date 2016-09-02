@@ -114,21 +114,26 @@ public class GameLoop : MonoBehaviour
         return isCan;
     }
 
+    public void MovePiece(PieceDirection dir)
+    {
+        movePiece(dir);
+    }
+
     public void MovePieceRight()
     {
-        Handheld.Vibrate();
+        //Handheld.Vibrate();
         movePiece(PieceDirection.RIGHT);
     }
 
     public void MovePieceLeft()
     {
-        Handheld.Vibrate();
+        //Handheld.Vibrate();
         movePiece(PieceDirection.LEFT);
     }
 
     public void MovePieceDown()
     {
-        Handheld.Vibrate();
+        //Handheld.Vibrate();
         movePiece(PieceDirection.DOWN);
     }
 
