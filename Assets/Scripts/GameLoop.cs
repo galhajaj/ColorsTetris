@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+
 
 public enum PieceDirection
 {
@@ -17,6 +19,7 @@ public class GameLoop : MonoBehaviour
 
     public Text ScoreText;
     private int _score = 0;
+    public int Score { get { return _score; } }
     public Text MultiplyerText;
     private int _multiplyer = 1;
 
@@ -62,6 +65,7 @@ public class GameLoop : MonoBehaviour
 
                 removeFullLines();
                 Piece.GenerateRandom();
+                CheckLosingWhilePieceCollideAtBeginning();
             }
         }
 	}
@@ -112,16 +116,19 @@ public class GameLoop : MonoBehaviour
 
     public void MovePieceRight()
     {
+        Handheld.Vibrate();
         movePiece(PieceDirection.RIGHT);
     }
 
     public void MovePieceLeft()
     {
+        Handheld.Vibrate();
         movePiece(PieceDirection.LEFT);
     }
 
     public void MovePieceDown()
     {
+        Handheld.Vibrate();
         movePiece(PieceDirection.DOWN);
     }
 
@@ -205,5 +212,19 @@ public class GameLoop : MonoBehaviour
     {
         ScoreText.text = "Score: " + _score.ToString();
         MultiplyerText.text = "X" + _multiplyer.ToString();
+    }
+
+    private void CheckLosingWhilePieceCollideAtBeginning()
+    {
+        foreach (Point p in Piece.Points)
+        {
+            if (Board.GetTile(p.X, p.Y).IsFull)
+            {
+                // lose
+                if (_score > PlayerPrefs.GetInt("BestScore"))
+                    PlayerPrefs.SetInt("BestScore", _score);
+                SceneManager.LoadScene("mainScene");
+            }
+        }
     }
 }
