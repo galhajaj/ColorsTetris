@@ -60,4 +60,34 @@ public class Board : MonoBehaviour
         }
         return true;
     }
+
+    public bool CheckFullLine(int lineNumber)
+    {
+        for (int i = 0; i < BoardSizeX; ++i)
+        {
+            if (!GetTile(i, lineNumber).IsFull)
+                return false;
+        }
+        return true;
+    }
+
+    public void ClearLine(int lineNumber)
+    {
+        for (int i = 0; i < BoardSizeX; ++i)
+        {
+            GetTile(i, lineNumber).Color = Color.white;
+        }
+    }
+
+    public void CollapseOnLine(int lineNumber)
+    {
+        for (int j = lineNumber; j < BoardSizeY - 1; ++j)
+        {
+            for (int i = 0; i < BoardSizeX; ++i)
+            {
+                GetTile(i, j).Color = GetTile(i, j + 1).Color;
+            }
+        }
+        ClearLine(BoardSizeY - 1);
+    }
 }

@@ -16,7 +16,9 @@ public class GameLoop : MonoBehaviour
     public Board Board;
 
     public Text ScoreText;
+    private int _score = 0;
     public Text MultiplyerText;
+    private int _multiplyer = 1;
 
     public float StepTime = 0.5F;
     private float _timePassed = 0.0F;
@@ -29,6 +31,8 @@ public class GameLoop : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
+        updateTexts();
+
         _timePassed -= Time.deltaTime;
         if (_timePassed <= 0.0F)
         {
@@ -181,6 +185,25 @@ public class GameLoop : MonoBehaviour
 
     private void removeFullLines()
     {
-        
+        int lineCounter = 0;
+
+        while (lineCounter < Board.BoardSizeY)
+        {
+            if (Board.CheckFullLine(lineCounter))
+            {
+                _score += _multiplyer;
+                Board.CollapseOnLine(lineCounter);
+            }
+            else
+            {
+                lineCounter++;
+            }
+        }
+    }
+
+    private void updateTexts()
+    {
+        ScoreText.text = "Score: " + _score.ToString();
+        MultiplyerText.text = "X" + _multiplyer.ToString();
     }
 }
