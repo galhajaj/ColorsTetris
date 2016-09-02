@@ -39,6 +39,13 @@ public class Piece : MonoBehaviour
         }
     }
 
+    private Color _color = Color.blue;
+    public Color Color
+    {
+        get { return _color; }
+        set { _color = value; }
+    }
+
 	// Use this for initialization
 	void Start () 
     {
@@ -61,8 +68,22 @@ public class Piece : MonoBehaviour
         return false;
     }
 
+    private void generateRandomColor()
+    {
+        int rand = Random.Range(0, 4);
+        if (rand == 0)
+            Color = Color.blue;
+        else if (rand == 1)
+            Color = Color.red;
+        else if (rand == 2)
+            Color = Color.yellow;
+        else if (rand == 3)
+            Color = Color.yellow;
+    }
+
     public void GenerateRandom()
     {
+        generateRandomColor();
         Points.Clear();
 
         int rand = Random.Range(0, 7);

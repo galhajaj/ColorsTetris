@@ -139,6 +139,9 @@ public class GameLoop : MonoBehaviour
 
     public void Rotate()
     {
+        if (!Piece.IsRotatable)
+            return;
+
         List<Point> pointsAfterRotate = Piece.PointsAfterRotate;
         if (!Board.IsPointsInsideBoard(pointsAfterRotate))
             return;
