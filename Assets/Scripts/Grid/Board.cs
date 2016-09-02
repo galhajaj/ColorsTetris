@@ -48,4 +48,16 @@ public class Board : MonoBehaviour
     {
         return _tilesDictioanry[x.ToString() + "-" + y.ToString()];
     }
+
+    public bool IsPointsInsideBoard(List<Point> points)
+    {
+        foreach (Point p in points)
+        {
+            if (p.X < 0 || p.X >= BoardSizeX)
+                return false;
+            if (p.Y < 0 || p.X >= BoardSizeY)
+                return false;
+        }
+        return true;
+    }
 }

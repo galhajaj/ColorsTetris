@@ -15,7 +15,29 @@ public class Point
 
 public class Piece : MonoBehaviour 
 {
+    public bool IsRotatable { get; set; }
+
     public List<Point> Points = new List<Point>();
+
+    public List<Point> PointsAfterRotate
+    {
+        get
+        {
+            List<Point> points = new List<Point>();
+
+            points.Add(Points[0]);
+
+            for (int i = 1; i < Points.Count; ++i)
+            {
+                Point v_r = new Point(Points[i].X - Points[0].X, Points[i].Y - Points[0].Y);
+                Point v_t = new Point( -1 * v_r.Y, 1 * v_r.X );
+                Point v_new = new Point( Points[0].X + v_t.X, Points[0].Y + v_t.Y );
+                points.Add(v_new);
+            }
+
+            return points;
+        }
+    }
 
 	// Use this for initialization
 	void Start () 
@@ -49,64 +71,71 @@ public class Piece : MonoBehaviour
         // ##
         if (rand == 0)
         {
+            IsRotatable = false;
+            Points.Add(new Point(4, 18));
             Points.Add(new Point(5, 18));
-            Points.Add(new Point(6, 18));
+            Points.Add(new Point(4, 19));
             Points.Add(new Point(5, 19));
-            Points.Add(new Point(6, 19));
         }
         // ###
         // #
         if (rand == 1)
         {
-            Points.Add(new Point(5, 18));
-            Points.Add(new Point(7, 19));
+            IsRotatable = true;
             Points.Add(new Point(5, 19));
+            Points.Add(new Point(4, 19));
+            Points.Add(new Point(4, 18));
             Points.Add(new Point(6, 19));
         }
         // ###
         //   #
         if (rand == 2)
         {
-            Points.Add(new Point(7, 18));
-            Points.Add(new Point(7, 19));
+            IsRotatable = true;
             Points.Add(new Point(5, 19));
             Points.Add(new Point(6, 19));
+            Points.Add(new Point(6, 18));
+            Points.Add(new Point(4, 19));
         }
         // ###
         //  #
         if (rand == 3)
         {
-            Points.Add(new Point(6, 18));
-            Points.Add(new Point(7, 19));
+            IsRotatable = true;
             Points.Add(new Point(5, 19));
+            Points.Add(new Point(5, 18));
             Points.Add(new Point(6, 19));
+            Points.Add(new Point(4, 19));
         }
         // ####
         // 
         if (rand == 4)
         {
+            IsRotatable = true;
             Points.Add(new Point(4, 19));
-            Points.Add(new Point(7, 19));
-            Points.Add(new Point(5, 19));
+            Points.Add(new Point(3, 19));
             Points.Add(new Point(6, 19));
+            Points.Add(new Point(5, 19));
         }
         // ##
         //  ##
         if (rand == 5)
         {
-            Points.Add(new Point(6, 18));
-            Points.Add(new Point(7, 18));
+            IsRotatable = true;
             Points.Add(new Point(5, 19));
-            Points.Add(new Point(6, 19));
+            Points.Add(new Point(5, 18));
+            Points.Add(new Point(6, 18));
+            Points.Add(new Point(4, 19));
         }
         //  ##
         // ##
         if (rand == 6)
         {
+            IsRotatable = true;
+            Points.Add(new Point(5, 19));
             Points.Add(new Point(6, 19));
-            Points.Add(new Point(7, 19));
+            Points.Add(new Point(4, 18));
             Points.Add(new Point(5, 18));
-            Points.Add(new Point(6, 18));
         }
     }
 }

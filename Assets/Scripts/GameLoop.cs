@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum PieceDirection
 {
@@ -12,6 +14,9 @@ public class GameLoop : MonoBehaviour
 {
     public Piece Piece;
     public Board Board;
+
+    public Text ScoreText;
+    public Text MultiplyerText;
 
     public float StepTime = 0.5F;
     private float _timePassed = 0.0F;
@@ -51,6 +56,7 @@ public class GameLoop : MonoBehaviour
                 foreach (Point p in Piece.Points)
                     Board.GetTile(p.X, p.Y).Color = Color.blue;
 
+                removeFullLines();
                 Piece.GenerateRandom();
             }
         }
@@ -110,6 +116,39 @@ public class GameLoop : MonoBehaviour
         movePiece(PieceDirection.LEFT);
     }
 
+    public void MovePieceDown()
+    {
+        movePiece(PieceDirection.DOWN);
+    }
+
+    public void Rotate()
+    {
+        List<Point> pointsAfterRotate = Piece.PointsAfterRotate;
+        if (!Board.IsPointsInsideBoard(pointsAfterRotate))
+            return;
+
+        foreach (Point p in pointsAfterRotate)
+        {
+            Tile rotatedTile = Board.GetTile(p.X, p.Y);
+            if (rotatedTile.IsFull)
+            {
+                if (!Piece.IsContainsTile(rotatedTile))
+                    return;
+            }
+        }
+
+        // delete piece
+        foreach (Point p in Piece.Points)
+            Board.GetTile(p.X, p.Y).Color = Color.white;
+
+        // changeTiles
+        Piece.Points = Piece.PointsAfterRotate;
+
+        // draw piece
+        foreach (Point p in Piece.Points)
+            Board.GetTile(p.X, p.Y).Color = Color.blue;
+    }
+
     private void movePiece(PieceDirection dir)
     {
         int dy = 0;
@@ -138,5 +177,10 @@ public class GameLoop : MonoBehaviour
         // draw piece
         foreach (Point p in Piece.Points)
             Board.GetTile(p.X, p.Y).Color = Color.blue;
+    }
+
+    private void removeFullLines()
+    {
+        
     }
 }
