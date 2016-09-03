@@ -39,7 +39,7 @@ public class Piece : MonoBehaviour
         }
     }
 
-    private Color _color = Color.blue;
+    private Color _color = Color.white;
     public Color Color
     {
         get { return _color; }
@@ -78,7 +78,7 @@ public class Piece : MonoBehaviour
         else if (rand == 2)
             Color = Color.yellow;
         else if (rand == 3)
-            Color = Color.yellow;
+            Color = Color.green;
     }
 
     public void GenerateRandom()

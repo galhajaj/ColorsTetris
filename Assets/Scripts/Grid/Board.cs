@@ -71,6 +71,18 @@ public class Board : MonoBehaviour
         return true;
     }
 
+    public bool IsLineInSameColor(int lineNumber)
+    {
+        Color firstTileColor = GetTile(0, lineNumber).Color;
+
+        for (int i = 0; i < BoardSizeX; ++i)
+        {
+            if (GetTile(i, lineNumber).Color != firstTileColor)
+                return false;
+        }
+        return true;
+    }
+
     public void ClearLine(int lineNumber)
     {
         for (int i = 0; i < BoardSizeX; ++i)

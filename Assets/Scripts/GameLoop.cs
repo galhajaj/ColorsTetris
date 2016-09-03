@@ -55,13 +55,13 @@ public class GameLoop : MonoBehaviour
                     p.Y--;
                 // draw piece
                 foreach (Point p in Piece.Points)
-                    Board.GetTile(p.X, p.Y).Color = Color.blue;
+                    Board.GetTile(p.X, p.Y).Color = Piece.Color;
             }
             else
             {
                 // draw piece
                 foreach (Point p in Piece.Points)
-                    Board.GetTile(p.X, p.Y).Color = Color.blue;
+                    Board.GetTile(p.X, p.Y).Color = Piece.Color;
 
                 removeFullLines();
                 Piece.GenerateRandom();
@@ -165,7 +165,7 @@ public class GameLoop : MonoBehaviour
 
         // draw piece
         foreach (Point p in Piece.Points)
-            Board.GetTile(p.X, p.Y).Color = Color.blue;
+            Board.GetTile(p.X, p.Y).Color = Piece.Color;
     }
 
     private void movePiece(PieceDirection dir)
@@ -195,7 +195,7 @@ public class GameLoop : MonoBehaviour
 
         // draw piece
         foreach (Point p in Piece.Points)
-            Board.GetTile(p.X, p.Y).Color = Color.blue;
+            Board.GetTile(p.X, p.Y).Color = Piece.Color;
     }
 
     private void removeFullLines()
@@ -206,6 +206,8 @@ public class GameLoop : MonoBehaviour
         {
             if (Board.CheckFullLine(lineCounter))
             {
+                if (Board.IsLineInSameColor(lineCounter))
+                    _multiplyer++;
                 _score += _multiplyer;
                 Board.CollapseOnLine(lineCounter);
             }
